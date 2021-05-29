@@ -1,0 +1,8 @@
+{
+  "env": {
+    "DB_USERNAME": "borisovski-borche",
+    "DB_PASSWORD": "workshop",
+    "DB_CLUSTER_NAME": "cluster0",
+    "DB_NAME": "e-restaurant-api"
+  }
+}
