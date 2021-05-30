@@ -54,6 +54,14 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
+userSchema.methods.toJSON = function () {
+  const user = this;
+  const userObject = user.toObject();
+  delete userObject.password;
+  delete userObject.email;
+  return userObject;
+};
+
 //login middleware
 userSchema.statics.findByCredentials = async (email, password) => {
   const user = await User.findOne({ email });
