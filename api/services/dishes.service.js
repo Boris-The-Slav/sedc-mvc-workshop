@@ -1,4 +1,5 @@
 const Dish = require("../models/dish.model");
+const { GeneralError, NotFound, BadRequest } = require("../const/error.const");
 
 module.exports = class DishesService {
   static async getAllDishes() {
@@ -6,16 +7,18 @@ module.exports = class DishesService {
       const dishes = Dish.find();
       return dishes;
     } catch (error) {
-      throw { message: "Something went wrong while fetching dishes" };
+      throw new GeneralError(
+        `Something went wrong while fetching dishes ${error}`
+      );
     }
   }
   static async getDishById(id) {
     try {
       const dish = await Dish.findById({ _id: id });
-      if (!dish) throw new Error({ message: "Dish not found" });
+      if (!dish) throw new Error();
       return dish;
     } catch (error) {
-      throw { message: "Dish not found" };
+      throw new NotFound(`Dish Not Found`);
     }
   }
   static async createDish(data) {
@@ -28,16 +31,16 @@ module.exports = class DishesService {
       const createdDish = await new Dish(dish).save();
       return createdDish;
     } catch (error) {
-      throw { message: `Unable to create dish: ${error}` };
+      throw new BadRequest("Something went wrong while creating dish");
     }
   }
   static async updateDish(data, id) {
     try {
       const dish = await Dish.findById({ _id: id });
-      if (!dish) throw new Error({ message: "Dish Not Found" });
+      if (!dish) throw new Error();
       await Dish.updateOne({ _id: id }, data);
     } catch (error) {
-      throw new Error({ message: `Unable to update dish ${error}` });
+      throw new NotFound("Dish not found");
     }
   }
   static async deleteDish(id) {
@@ -46,7 +49,7 @@ module.exports = class DishesService {
       if (!response.deletedCount) throw new Error();
       return response;
     } catch (error) {
-      throw error;
+      throw new NotFound("Dish not found");
     }
   }
 };

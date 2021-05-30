@@ -37,7 +37,7 @@ module.exports = class DishesController {
       console.log(updatedDish);
       res.status(200).json({ message: "Dish sucessfully updated" });
     } catch (error) {
-      res.status(404).json({ message: "Dish Not Found" });
+      next(error);
     }
   }
   static async deleteDish(req, res, next) {
@@ -48,7 +48,7 @@ module.exports = class DishesController {
         message: `${response.deletedCount} dish successfully deleted`,
       });
     } catch (error) {
-      res.status(404).json({ message: "Dish Not Found" });
+      next(error);
     }
   }
 };

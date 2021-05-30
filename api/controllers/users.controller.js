@@ -6,7 +6,7 @@ module.exports = class UsersController {
       const createdUser = await UsersService.registerUser(req.body);
       res.status(201).json(createdUser);
     } catch (error) {
-      res.status(400).json(error);
+      next(error);
     }
   }
   static async loginUser(req, res, next) {
@@ -20,7 +20,7 @@ module.exports = class UsersController {
       };
       res.status(200).json(user);
     } catch (error) {
-      res.status(400).json(error);
+      next(error);
     }
   }
   static logoutUser(req, res) {

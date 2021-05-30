@@ -4,7 +4,7 @@ const DishesController = require("../controllers/dishes.controller");
 const sessionValidator = require("../middleware/sessionValidator.const");
 const roleValidator = require("../middleware/roleValidator.const");
 
-router.get("/", sessionValidator, DishesController.getAllDishes);
+router.get("/", DishesController.getAllDishes);
 router.get("/:id", sessionValidator, DishesController.getDishById);
 router.post(
   "/",

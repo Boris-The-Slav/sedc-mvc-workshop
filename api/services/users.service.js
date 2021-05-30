@@ -1,4 +1,5 @@
 const User = require("../models/user.model");
+const { GeneralError, BadRequest } = require("../const/error.const");
 
 module.exports = class UsersService {
   static async registerUser(data) {
@@ -15,7 +16,7 @@ module.exports = class UsersService {
 
       return response;
     } catch (error) {
-      throw { message: `Can't register user ${error}` };
+      throw new BadRequest(`Can't register user ${error}`);
     }
   }
   static async loginUser(credentials) {
@@ -27,7 +28,7 @@ module.exports = class UsersService {
 
       return user;
     } catch (error) {
-      throw { mesage: "Invalid Credentials" };
+      throw new BadRequest("Invalid Credentials");
     }
   }
 };
