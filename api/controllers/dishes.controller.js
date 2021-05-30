@@ -34,8 +34,7 @@ module.exports = class DishesController {
         req.body,
         req.params.id
       );
-      console.log(updatedDish);
-      res.status(200).json({ message: "Dish sucessfully updated" });
+      res.status(200).send(updatedDish);
     } catch (error) {
       next(error);
     }

@@ -15,7 +15,6 @@ module.exports = class DishesService {
   static async getDishById(id) {
     try {
       const dish = await Dish.findById({ _id: id });
-      if (!dish) throw new Error();
       return dish;
     } catch (error) {
       throw new NotFound(`Dish Not Found`);
@@ -36,9 +35,9 @@ module.exports = class DishesService {
   }
   static async updateDish(data, id) {
     try {
-      const dish = await Dish.findById({ _id: id });
-      if (!dish) throw new Error();
       await Dish.updateOne({ _id: id }, data);
+      const dish = await Dish.findById({ _id: id });
+      return dish;
     } catch (error) {
       throw new NotFound("Dish not found");
     }
